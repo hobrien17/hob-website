@@ -1,0 +1,104 @@
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/Roboto-Light.ttf");
+}
+
+@font-face {
+    font-family: "GrandHotel";
+    src: url("../fonts/GrandHotel-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Luna";
+    src: url("../fonts/Luna.ttf");
+}
+
+body {
+    background-color: #1a1a1d !important;
+    color: white !important;
+}
+
+hr {
+    background-color: white !important;
+}
+
+p {
+    font-family: Roboto, sans-serif;
+}
+
+/* MASTHEAD */
+
+.masthead.segment {
+    min-height: 100vh;
+    padding: 1em 0em;
+    background-color: mediumspringgreen !important;
+    color: #1a1a1d !important;
+}
+
+.masthead.segment.inverted {
+    background-color: #1a1a1d !important;
+    color: #FA0060 !important;
+}
+
+.masthead h1 {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 80px;
+    font-weight: normal;
+    font-family: Luna, sans-serif;
+}
+
+.masthead h2 {
+    font-size: 30px;
+    font-weight: normal;
+    font-family: Luna, sans-serif;
+}
+
+.masthead h3 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: normal;
+    font-family: Luna, sans-serif;
+}
+
+.masthead .opener {
+    margin-top: 20vh;
+}
+
+/* BODY */
+
+.container.main {
+    padding-top: 15vh !important;
+}
+
+
+.masthead .button {
+    background-color: #005c35 !important;
+    color: white !important;
+}
+
+.masthead .button:hover {
+    background-color: #007243 !important;
+}
+
+.menu {
+    background-color: #d9d9dd !important;
+}
+
+.menu .item {
+    opacity: 0.8 !important;
+}
+
+.menu .item.title {
+    margin-top: -20px;
+    margin-bottom: -20px;
+    font-size: 25px;
+    font-family: GrandHotel, sans-serif;
+}
+
+.menu .item.icon {
+    margin-top: -20px;
+    margin-bottom: -20px;
+    font-size: 25px;
+}
