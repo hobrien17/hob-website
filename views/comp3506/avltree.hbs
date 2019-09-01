@@ -57,21 +57,22 @@
             data: {
                 "arr": arr
             },
+            traditional: true,
             success: function(msg) {
                 let success = $("#successzone");
                 let error = $("#errorzone");
-                if (msg.result) {
+                if (msg) {
                     if (error.is(':visible')) {
                         error.transition();
                     }
-                    if (!error.is(':visible')) {
+                    if (!success.is(':visible')) {
                         success.transition();
                     }
                 } else {
                     if (!error.is(':visible')) {
                         error.transition();
                     }
-                    if (error.is(':visible')) {
+                    if (success.is(':visible')) {
                         success.transition();
                     }
                 }
