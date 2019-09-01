@@ -1,0 +1,215 @@
+<script src="/javascripts/viz.js"></script>
+<script src="/javascripts/full.render.js"></script>
+
+<div class="small main container">
+    <h1>AVL Tree Practice</h1>
+
+    <div class="ui warning message hidden" id="warningzone">
+        <div class="header">Check your answer!</div>
+        <ul class="list" id="warningmsg">
+        </ul>
+    </div>
+
+    <div class="ui error message hidden" id="errorzone">
+        <div class="header">Incorrect!</div>
+        That's not the right answer
+    </div>
+
+    <div class="ui success message hidden" id="successzone">
+        <div class="header">Correct!</div>
+        You got it!
+    </div>
+
+    <p>Insert the value ? into the AVL tree below</p>
+    <div class="card">
+        <div id="graphzone">
+
+        </div>
+    </div>
+
+    <p>Give your answer as the array-based representation of the tree</p>
+    <br>
+    <div class="ui one column stackable center aligned page grid">
+    <div class="ui form">
+        <div class="fields array">
+        <div class="inline fields" id="cells">
+        </div>
+            <div class="ui buttons">
+            <button class="ui primary button icon" data-content="Add a cell to the array" onclick="addCell(); update();"><i class="plus icon"></i></button>
+            <button class="ui secondary button icon" data-content="Remove the last cell from the array" onclick="removeCell(); update();;"><i class="minus icon"></i></button>
+            </div>
+        </div>
+    </div>
+
+        <button class="ui huge primary button" id="submitbtn" onclick="submit();">Check answer</button>
+    </div>
+
+</div>
+
+<script>
+    let viz = new Viz();
+
+    function submit() {
+        let arr = toArr();
+        $.ajax({
+            type: "POST",
+            url: "/comp3506/avltree/check",
+            data: {
+                "arr": arr
+            },
+            success: function(msg) {
+                let success = $("#successzone");
+                let error = $("#errorzone");
+                if (msg.result) {
+                    if (error.is(':visible')) {
+                        error.transition();
+                    }
+                    if (!error.is(':visible')) {
+                        success.transition();
+                    }
+                } else {
+                    if (!error.is(':visible')) {
+                        error.transition();
+                    }
+                    if (error.is(':visible')) {
+                        success.transition();
+                    }
+                }
+            }
+        });
+    }
+
+    function debug() {
+        console.log("hello world");
+    }
+
+    function addCell() {
+        $("#cells").append("<div class=\"field\"><input type=\"text\" placeholder=\"&Oslash;\" onblur=\"update();\"></div>");
+    }
+
+    function removeCell() {
+        $("#cells").children().last().remove();
+    }
+
+    function constructFromArray(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            addCell();
+            if (arr[i] !== null) {
+                $("#cells").children().last().children().first().val(arr[i].toString());
+            }
+        }
+    }
+
+    function hasDups(arr) {
+        let sofar = new Set();
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] !== "" && arr[i] !== null) {
+                if (sofar.has(arr[i])) {
+                    return true;
+                }
+                sofar.add(arr[i]);
+            }
+        }
+        return false;
+    }
+
+    function toArr() {
+        let arr = [];
+        let children = $("#cells").children();
+        for (let i = 0; i < children.length; i++) {
+            arr.push($(children[i]).children().first().val());
+        }
+        return arr;
+    }
+
+    function update() {
+        let arr = toArr();
+
+        let warning = $("#warningzone");
+        let dups = hasDups(arr);
+        let arrsize = (arr.length !== 0) && (arr.length + 1 & (arr.length)) !== 0;
+        if (dups || arrsize) {
+            let html = "";
+            if (dups) {
+                html += "<li>A binary search tree should not have duplicate elements</li>";
+            }
+            if (arrsize) {
+                html += "<li>Invalid array size</li>";
+            }
+            $("#warningmsg").html(html);
+            if (!warning.is(':visible')) {
+                warning.transition("slide down");
+            }
+            $("#submitbtn").attr("disabled", true);
+        } else  {
+            if (warning.is(':visible')) {
+                warning.transition("slide down");
+            }
+            $("#submitbtn").attr("disabled", false);
+            drawTree(treeToString(toTree(arr)));
+        }
+    }
+
+    function toTree(arr) {
+        let nodes = [];
+        for (let i = 0; i < arr.length; i++) {
+            let node = {"value": arr[i], "left": "", "right": ""};
+            if (2 * i + 1 < arr.length) {
+                node.left = arr[2 * i + 1];
+            }
+            if (2 * i + 2 < arr.length) {
+                node.right = arr[2 * i + 2];
+            }
+            nodes.push(node);
+        }
+        return nodes;
+    }
+
+    function treeToString(tree) {
+        let links = "";
+        let properties = "";
+        let nullValue = 0;
+        for (let i = 0; i < tree.length; i++) {
+            if (tree[i].value !== "") {
+                properties += tree[i].value + " [shape=circle margin=0 width=0 height=0];";
+                if (tree[i].left !== "") {
+                    links += tree[i].value + " -> " + tree[i].left + ";";
+                } else {
+                    links += tree[i].value + " -> n" + ++nullValue + ";";
+                    properties += "n" + nullValue + " [shape=square margin=0 width=0.1 height=0.1 fontsize=0 fontcolor=white];";
+                }
+                if (tree[i].right !== "") {
+                    links += tree[i].value + " -> " + tree[i].right + ";";
+                } else {
+                    links += tree[i].value + " -> n" + ++nullValue + ";";
+                    properties += "n" + nullValue + " [shape=square margin=0 width=0.1 height=0.1 fontsize=0 fontcolor=white];";
+                }
+            }
+        }
+        return "digraph { " + links + properties + " }";
+    }
+
+    function drawTree(treeString) {
+        viz.renderSVGElement(treeString)
+                .then(function(element) {
+                    $("#graphzone").html(element);
+                })
+                .catch(error => {
+                    // Create a new Viz instance (@see Caveats page for more info)
+                    viz = new Viz();
+
+                    // Possibly display the error
+                    console.error(error);
+                });
+    }
+
+    $(document).ready(function () {
+        let arr = ["1", "2", "3", "4", "5", "6", "", "8", "9", "10", "11", "12", "13", "", ""];
+        constructFromArray(arr);
+        drawTree(treeToString(toTree(arr)));
+    });
+
+    $('.button')
+            .popup()
+    ;
+</script>

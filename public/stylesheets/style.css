@@ -18,12 +18,43 @@ body {
     color: white !important;
 }
 
-hr {
-    background-color: white !important;
-}
-
 p {
     font-family: Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 20pt !important;
+}
+
+li {
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 20pt !important;
+}
+
+.ui.message {
+    font-family: Roboto, sans-serif !important;
+    font-size: 16px !important;
+}
+
+.ui.message.error {
+    background-color: #fad9e3 !important;
+}
+
+.ui.message.success {
+    background-color: #a8ffd7 !important;
+}
+
+.ui.buttons {
+    margin: 0 10px !important;
+}
+
+.ui.button.primary {
+    background-color: mediumspringgreen !important;
+    color: #1a1a1d !important;
+}
+
+.ui.button.secondary {
+    background-color: #FA0060 !important;
+    color: white !important;
 }
 
 /* MASTHEAD */
@@ -70,8 +101,12 @@ p {
 
 .container.main {
     padding-top: 15vh !important;
+    padding-bottom: 5vh !important;
 }
 
+.container.main.small {
+    padding-top: 5vh !important;
+}
 
 .masthead .button {
     background-color: #005c35 !important;
@@ -101,4 +136,40 @@ p {
     margin-top: -20px;
     margin-bottom: -20px;
     font-size: 25px;
+}
+
+.fancy {
+    font-family: Luna, sans-serif;
+    color: mediumspringgreen;
+}
+
+.image.bordered {
+    border: solid mediumspringgreen 10px !important;
+    padding: 5px;
+}
+
+.array input {
+    width: 50px !important;
+    height: 40px !important;
+    text-align: center;
+    border-radius: 0 !important;
+}
+
+.array .field {
+    padding: 0px !important;
+}
+
+.array .ui.button {
+    height: 40px !important;
+    text-align: center !important;
+}
+
+.card {
+    color: #1a1a1d;
+    padding: 20px;
+    margin: 20px 0px;
+}
+
+#graphzone {
+    text-align: center;
 }

@@ -1,4 +1,52 @@
+<script>
+    const IMAGES = [
+            "/images/profilethinking.jpg",
+            "/images/profileplant.jpg",
+            "/images/profilecat.jpg"
+    ];
+
+    $(document).ready(function() {
+        $("#profile").attr('src', IMAGES[Math.floor(Math.random()*IMAGES.length)]);
+    })
+</script>
+
+
 <div class="container main">
-    <h1 class="opener">Hello</h1>
-    <p> its me</p>
+    <div class="ui equal width grid">
+        <div class="four wide column">
+            <img class="ui medium circular bordered image" id="profile">
+        </div>
+        <div class="wide column"></div>
+        <div class="column" id="aboutme">
+            <h1 class="fancy">Hi, I'm Henry!</h1>
+            <p>
+                I'm a final-semester student completing a Bachelor of Software Engineering (Hons) at the
+                University of Queensland. My interests lie in the fields of computer networks,
+                data structures and algorithms, and software verification.
+            </p>
+            <p>
+                Over my time at university I've been fortunate enough to gain a ton of knowledge and experience
+                through various means, such as:
+            </p>
+            <ul>
+                <li>An internship at Oracle Labs Australia from July 2018 to June 2019, where I worked
+                on a research project developing a verification technique for cloud-scale software
+                defined networks</li>
+                <li>A casual demonstrator (tutor) position at UQ for the following 6 engineering courses:</li>
+                <ul>
+                    <li>COMP3506 (Algorithms and Data Structures)</li>
+                    <li>CSSE1001 (Introduction to Software Engineering)</li>
+                    <li>CSSE2002 (Programming in the Large/Advanced Software Engineering)</li>
+                    <li>COMS3200 (Computer Networks I)</li>
+                    <li>ENGG1100 (Engineering Design)</li>
+                    <li>ENGG1200 (Engineering Modelling and Problem Solving)</li>
+                </ul>
+                <li>Various hackathons, most notably the 2018 Code Network Winter Hackathon
+                where myself and a team of three others won second place for a web-based tutor allocation tool</li>
+            </ul>
+
+            <p>Next year I will be starting a new position as a junior software developer at Atlassian's Sydney
+            office. I really look forward to what new experiences that will bring!</p>
+        </div>
+    </div>
 </div>
