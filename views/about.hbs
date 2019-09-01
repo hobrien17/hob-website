@@ -1,15 +1,3 @@
-<script>
-    const IMAGES = [
-            "/images/profilethinking.jpg",
-            "/images/profileplant.jpg",
-            "/images/profilecat.jpg"
-    ];
-
-    $(document).ready(function() {
-        $("#profile").attr('src', IMAGES[Math.floor(Math.random()*IMAGES.length)]);
-    })
-</script>
-
 
 <div class="container main">
     <div class="ui equal width grid">
@@ -50,3 +38,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    const IMAGES = [
+        "/images/profilethinking.jpg",
+        "/images/profileplant.jpg",
+        "/images/profilecat.jpg"
+    ];
+
+    $(document).ready(function() {
+        $("#profile").attr('src', IMAGES[Math.floor(Math.random()*IMAGES.length)]);
+    })
+</script>
