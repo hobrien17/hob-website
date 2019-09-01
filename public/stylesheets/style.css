@@ -112,12 +112,12 @@ li {
     padding-top: 5vh !important;
 }
 
-.masthead .button {
+.masthead .button.primary {
     background-color: #005c35 !important;
     color: white !important;
 }
 
-.masthead .button:hover {
+.masthead .button.primary:hover {
     background-color: #007243 !important;
 }
 
