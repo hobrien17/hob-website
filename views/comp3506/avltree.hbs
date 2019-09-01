@@ -20,7 +20,7 @@
         You got it!
     </div>
 
-    <p>Insert the value ? into the AVL tree below</p>
+    <p>Insert the value {{toInsert}} into the AVL tree below</p>
     <div class="card">
         <div id="graphzone">
 
@@ -29,8 +29,7 @@
 
     <p>Give your answer as the array-based representation of the tree</p>
     <br>
-    <div class="ui one column stackable center aligned page grid">
-    <div class="ui form">
+    <div class="ui form overflow">
         <div class="fields array">
         <div class="inline fields" id="cells">
         </div>
@@ -41,7 +40,8 @@
         </div>
     </div>
 
-        <button class="ui huge primary button" id="submitbtn" onclick="submit();">Check answer</button>
+    <div class="ui one column stackable center aligned page grid">
+    <button class="ui huge centered primary button" id="submitbtn" onclick="submit();">Check answer</button>
     </div>
 
 </div>
@@ -127,6 +127,15 @@
         let arr = toArr();
 
         let warning = $("#warningzone");
+        let success = $("#successzone");
+        let error = $("#errorzone");
+        if (success.is(':visible')) {
+            success.transition("slide down");
+        }
+        if (error.is(':visible')) {
+            error.transition("slide down");
+        }
+
         let dups = hasDups(arr);
         let arrsize = (arr.length !== 0) && (arr.length + 1 & (arr.length)) !== 0;
         if (dups || arrsize) {
@@ -204,11 +213,11 @@
                 });
     }
 
-    $(document).ready(function () {
-        let arr = ["1", "2", "3", "4", "5", "6", "", "8", "9", "10", "11", "12", "13", "", ""];
+    //$(document).ready(function () {
+        let arr = "{{{original}}}".split(",");
         constructFromArray(arr);
         drawTree(treeToString(toTree(arr)));
-    });
+    //});
 
     $('.button')
             .popup()

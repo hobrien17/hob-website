@@ -52,6 +52,10 @@ li {
     color: #1a1a1d !important;
 }
 
+.ui.button.primary.huge {
+    margin: 10px !important;
+}
+
 .ui.button.secondary {
     background-color: #FA0060 !important;
     color: white !important;
@@ -172,4 +176,11 @@ li {
 
 #graphzone {
     text-align: center;
+}
+
+.ui.overflow {
+    overflow-y: auto !important;
+    white-space: nowrap !important;
+    padding: 0 10px;
+    margin-bottom: 10px;
 }

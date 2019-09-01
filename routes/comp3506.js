@@ -2,12 +2,16 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/avltree', function(req, res, next) {
-    res.render('comp3506/avltree', { title: 'AVL Tree', hidemenu: true });
+    let original = ["13", "10", "15", "5", "11", "", "16", "4", "8", "", "", "", "", "", ""];
+    res.render('comp3506/avltree', { title: 'AVL Tree', hidemenu: true, original: original, toInsert: 3 });
 });
 
 router.post('/avltree/check', function(req, res) {
-    let expected = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"];
+    let expected = ["13", "5", "15", "4", "10", "", "16", "3", "", "8", "11", "", "", "", ""];
     let arr = req.body["arr"];
+    while (expected[expected.length - 1] === "") {
+        expected.pop();
+    }
     while (arr[arr.length - 1] === "") {
         arr.pop();
     }
