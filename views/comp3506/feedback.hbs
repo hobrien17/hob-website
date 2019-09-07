@@ -1,0 +1,69 @@
+<div class="small main container">
+    <h1>COMP3506 Feedback Form</h1>
+    <h2>Welcome {{username}}</h2>
+    <p>This is an anonymous feedback form for COMP3506. It is not designed to replace SECaTs or tutor evaluations,
+    but is instead aimed at allowing us to address any problems before the end of the course.</p>
+    <p>If there's something you want changed, let us know and we will try to address it! If there's something you
+        love, let us know and we will keep it going! Feel free to submit feedback multiple times.
+        We do ask that you are repsectful in the feedback you give.</p>
+    <p>This feedback is "anonymous" in the same sense as SECaTs are. Course staff will be unable to see who sent
+    what feedback, however if you leave disrespectful or discriminatory comments there are ways to tie it back to you.</p>
+    <div class="ui success message hidden" id="successmsg">
+        <i class="close icon" onclick="hide();"></i>
+        <div class="header">
+            Thankyou for your feedback!
+        </div>
+        <p>We will try to address it as soon as possible.</p>
+    </div>
+    <div class="card">
+        <form class="ui form" id="form">
+        <h4>Write your feedback here</h4>
+            <div class="field">
+                <textarea name="feedback"></textarea>
+            </div>
+        <br>
+        <p>If your feedback is for a certain staff member or a certain element of the course, let us know below
+            and we will pass the feedback onto the relevant staff.</p>
+        <select class="ui dropdown" name="target">
+            <option value="na">N/A</option>
+            <option value="mahsa">Mahsa</option>
+            <option value="henry">Henry</option>
+            <option value="emily">Emily</option>
+            <option value="james">James</option>
+            <option value="tom">Tom</option>
+            <option value="alex">Alex</option>
+            <option value="lecture">Lecture material</option>
+            <option value="tutorial">Tutorial material</option>
+            <option value="assessment">Assessment</option>
+            <option value="piazza">Piazza</option>
+        </select>
+        <br>
+        <input class="fluid ui primary button" type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+
+<script>
+    $("#form").submit(function () {
+        let arr = $('#form').serializeArray();
+        let json = {};
+        for (let i = 0; i < arr.length; i++) {
+            json[arr[i].name] = arr[i].value;
+        }
+        if (json.feedback !== "") {
+            $.ajax({
+                type: "POST",
+                url: "/comp3506/feedback/submit",
+                data: json,
+                traditional: true,
+            });
+            $('#successmsg').transition('slide down');
+            $('#form').trigger('reset');
+        }
+        return false;
+    });
+
+    function hide() {
+        $('#successmsg').transition('slide down');
+    }
+</script>
