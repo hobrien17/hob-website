@@ -3,7 +3,6 @@ const createError = require('http-errors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const uqsso = require('uqsso');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -16,26 +15,6 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
-// UQ Single Sign-on Middleware
-app.use(cookieParser());
-if (!debug) {
-    let sso = uqsso();
-    app.use(sso);
-} else {
-    app.use(function (req, res, next) {
-        req.user = {
-            email: "s4434180@student.uq.edu.au",
-            name:"Henry O'Brien",
-            lastname:"O'Brien",
-            firstname:"Henry",
-            groups:["labs:comp3506", "labs:comp3506-2019-2"],
-            type:"Student",
-            user:"s4434180"
-        };
-        next();
-    })
-}
 
 app.use(logger('dev'));
 app.use(express.json());
